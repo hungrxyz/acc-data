@@ -1,0 +1,22 @@
+name: scrape
+
+on:
+  workflow_dispatch:
+
+jobs:
+   scrape:
+
+     runs-on: macos-latest
+
+     steps:
+     - uses: actions/checkout@v3
+     - name: scraping
+       run: swift run
+
+     - name: Commit files
+       run: |
+         git config --local user.email "marko@hungry.dev"
+         git config --local user.name "ACC"
+         git add .
+         git commit -m 'Updates latest standings'
+         git push
