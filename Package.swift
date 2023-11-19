@@ -20,7 +20,8 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "SwiftSoup", package: "SwiftSoup")
-            ]
+            ],
+            path: "Sources"
         ),
     ]
 )
