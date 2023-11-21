@@ -1,22 +1,20 @@
 name: scrape
-
 on:
   workflow_dispatch:
+permissions:
+  contents: write
 
 jobs:
-   scrape:
-
-     runs-on: macos-13
-
-     steps:
-     - uses: actions/checkout@v3
-     - name: scraping
-       run: swift run
-
-     - name: Commit files
-       run: |
-         git config --local user.email "marko@hungry.dev"
-         git config --local user.name "ACC"
-         git add .
-         git commit -m 'Updates latest standings'
-         git push
+  scrape:
+    runs-on: macos-13
+    steps:
+    - uses: actions/checkout@v3
+    - name: scraping
+      run: swift run
+    - name: Commit files
+      run: |
+        git config --local user.email "marko@hungry.dev"
+        git config --local user.name "ACC"
+        git add .
+        git commit -m 'Updates latest standings'
+        git push
