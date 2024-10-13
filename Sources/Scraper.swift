@@ -14,7 +14,7 @@ struct Scraper: AsyncParsableCommand {
     mutating func run() async throws {
 
         enum Category: String, CaseIterable {
-            case ja, jb, jc, c, d, b, a
+            case ja, jb, jc, c, d, b, a, x
             
             var gid: String {
                 switch self {
@@ -32,13 +32,15 @@ struct Scraper: AsyncParsableCommand {
                     return "563556052"
                 case .a:
                     return "1908651275"
+                case .x:
+                    return "209563100"
                 }
             }
         }
 
         for category in Category.allCases {
 
-            let url = URL(string: "https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vTxqu45sTCT3CtenEvlvuD9onGnyqwqNTOf-KMok2b9SPQ_ckVkvO7vuDraTaApwaJmwercGWYB-eiA/pubhtml/sheet?headers=false&gid=\(category.gid)")!
+            let url = URL(string: "https://docs.google.com/spreadsheets/u/1/d/1oijJwAD6PN6DjnABpWXxOqVjFoFUsf7l4Jzt-uiHOmc/pubhtml/sheet?headers=false&gid=\(category.gid)")!
             let (data, _) = try await URLSession.shared.data(from: url)
 
             let string = String(decoding: data, as: UTF8.self)
@@ -64,8 +66,6 @@ struct Scraper: AsyncParsableCommand {
 
                 guard id.isEmpty == false else { return }
 
-                // Removing ID2
-                raw.removeFirst()
                 let name = raw.removeFirst()
                 let club = raw.removeFirst()
 
@@ -94,7 +94,7 @@ struct Scraper: AsyncParsableCommand {
             let fileManager = FileManager.default
             let standingsURL = URL(fileURLWithPath: fileManager.currentDirectoryPath)
                 .appendingPathComponent("data")
-                .appendingPathComponent("2023")
+                .appendingPathComponent("2024")
                 .appendingPathComponent("standings")
             try fileManager.createDirectory(at: standingsURL, withIntermediateDirectories: true)
 
